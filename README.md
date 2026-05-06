@@ -33,7 +33,7 @@ The API uses **JWT (JSON Web Token)** for authentication.
 Authorization: Bearer <your_token>
 ```
 
-### 🔒 Data Isolation
+### Data Isolation
 - Each dealer can only access their own cars
 - All database queries filter using `DealerId`
 - Prevents access to other dealers' data
@@ -62,7 +62,7 @@ https://localhost:7200/swagger
 
 ---
 
-## 🧪 Testing Steps
+## Testing Steps
 
 1. Register → `/auth/register`  
 2. Login → `/auth/login`  
