@@ -26,6 +26,7 @@ Make,
 Model, 
 Year, 
 Stock,
+Price,
 IsDeleted,
 InsertDateUtc,
 UpdateDateUtc
@@ -37,6 +38,7 @@ VALUES (
 @Model,
 @Year, 
 @Stock,
+@Price,
 @IsDeleted,
 @InsertDateUtc,
 @UpdateDateUtc
@@ -50,6 +52,7 @@ VALUES (
         parameters.Add("@Model", req.Model, DbType.String, ParameterDirection.Input);
         parameters.Add("@Year", req.Year, DbType.Int32, ParameterDirection.Input);
         parameters.Add("@Stock", req.Stock, DbType.Int32, ParameterDirection.Input);
+        parameters.Add("@Price", req.Price, DbType.Decimal, ParameterDirection.Input);
         parameters.Add("@IsDeleted", false, DbType.Boolean, ParameterDirection.Input);
         parameters.Add("@InsertDateUtc", DateTime.UtcNow, DbType.DateTime, ParameterDirection.Input);
         parameters.Add("@UpdateDateUtc", DateTime.UtcNow, DbType.DateTime, ParameterDirection.Input);
@@ -64,7 +67,7 @@ VALUES (
         using SqliteConnection connection = _connection.GetConnection();
 
         var sql = @"
-SELECT CarId, Make, Model, Year, Stock
+SELECT CarId, Make, Model, Year, Stock, Price
 FROM Cars
 WHERE DealerId = @DealerId 
 AND CarId = @CarId
@@ -88,7 +91,8 @@ AND IsDeleted = 0
             Make = result.Make,
             Model = result.Model,
             Year = (int)result.Year,
-            Stock = (int)result.Stock
+            Stock = (int)result.Stock,
+            Price = (Decimal?)result.Price
         };
     }
 
@@ -97,7 +101,7 @@ AND IsDeleted = 0
         SqliteConnection connection = _connection.GetConnection();
         connection.Open();
         var sql = @"
-SELECT CarId, Make, Model, Year, Stock
+SELECT CarId, Make, Model, Year, Stock, Price
 FROM Cars
 WHERE DealerId = @DealerId
 AND IsDeleted = 0
@@ -114,7 +118,8 @@ ORDER BY Make, Model, Year;
             Make = result.Make,
             Model = result.Model,
             Year = (int)result.Year,
-            Stock = (int)result.Stock
+            Stock = (int)result.Stock,
+            Price = (Decimal?)result.Price
         }).ToList();
 
         return cars;
@@ -125,7 +130,7 @@ ORDER BY Make, Model, Year;
         SqliteConnection connection = _connection.GetConnection();
         connection.Open();
         var sql = @"
-SELECT CarId, Make, Model, Year, Stock
+SELECT CarId, Make, Model, Year, Stock, Price
 FROM Cars
 WHERE DealerId = @DealerId
 AND IsDeleted = 0
@@ -148,7 +153,8 @@ ORDER BY Make, Model, Year;
             Make = result.Make,
             Model = result.Model,
             Year = Convert.ToInt32(result.Year),
-            Stock = Convert.ToInt32(result.Stock)
+            Stock = Convert.ToInt32(result.Stock),
+            Price = Convert.ToDecimal(result.Price)
         }).ToList();
 
         return cars;

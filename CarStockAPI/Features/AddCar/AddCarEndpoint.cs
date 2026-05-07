@@ -51,6 +51,13 @@ public class AddCarEndpoint : Endpoint<AddCarRequest, AddCarResponse>
             return;
         }
 
+        if(req.Price <= 0)
+        {
+            AddError("Price must be greater than zero");
+            await Send.ErrorsAsync(cancellation: ct);
+            return;
+        }
+
         var carId = await _carRepository.AddCar(req, dealerId);
         await Send.OkAsync(new AddCarResponse
         {
