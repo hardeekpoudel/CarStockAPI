@@ -1,4 +1,4 @@
-# 🚗 Car Stock API
+# Car Stock API
 
 A RESTful Web API built using C#, FastEndpoints, Dapper, and SQLite, that allows multiple dealers to securely manage their car inventory.
 
