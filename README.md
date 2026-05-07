@@ -10,7 +10,7 @@ A RESTful Web API built using C#, FastEndpoints, Dapper, and SQLite, that allows
 - JWT-based authentication
 - Add car
 - Get car by ID
-- List all cars with stock levels
+- List all cars with stock levels and price
 - Update car stock
 - Search cars by make, model, and year
 - Soft delete (cars are not permanently removed)
